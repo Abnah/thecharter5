@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IT Career Readiness - Project Charter</title>
+  <meta name="description" content="Professional project charter for IT Career Readiness program - Managing IT Projects course" />
+  <meta name="author" content="Abner Bonilla" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: #1e293b;
+      background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 50%, #fef3c7 100%);
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #f97316 100%);
+      color: white;
+      padding: 3rem 2rem;
+      text-align: center;
+      border-radius: 1rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      animation: pulse 8s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.1) rotate(180deg); }
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .header h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .header p {
+      font-size: 1.125rem;
+      opacity: 0.95;
+    }
+
+    .nav-card {
+      background: white;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 1rem;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+
+    .nav-link {
+      background: #3b82f6;
+      color: white;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      transition: all 0.3s;
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+    }
+
+    .nav-link:hover {
+      background: #2563eb;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+    }
+
+    .card {
+      background: white;
+      border-radius: 1rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      scroll-margin-top: 6rem;
+      transition: all 0.3s;
+    }
+
+    .card:hover {
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    .card-header {
+      background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+      color: white;
+      padding: 1.5rem 1.75rem;
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s;
+    }
+
+    .card-header:hover {
+      background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+    }
+
+    .card-header.no-collapse {
+      cursor: default;
+      background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+    }
+
+    .card-header.no-collapse:hover {
+      background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+    }
+
+    .card-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .card-subtitle {
+      font-size: 0.8rem;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      margin-top: 0.5rem;
+      display: inline-block;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .toggle-icon {
+      font-size: 1.5rem;
+      transition: transform 0.3s;
+      font-weight: 300;
+    }
+
+    .toggle-icon.rotated {
+      transform: rotate(180deg);
+    }
+
+    .card-content {
+      padding: 1.75rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
+    }
+
+    .card-content.show {
+      max-height: 5000px;
+      padding: 1.75rem;
+    }
+
+    .card-content.always-show {
+      max-height: none;
+      display: block;
+      padding: 1.75rem;
+    }
+
+    .summary-box {
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      border-left: 4px solid #3b82f6;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+    }
+
+    .summary-box h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1e40af;
+      margin-bottom: 0.5rem;
+    }
+
+    .summary-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-top: 0.75rem;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: #64748b;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    .stat-value {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #1e40af;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 0.375rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .badge-primary {
+      background: #3b82f6;
+      color: white;
+    }
+
+    .badge-secondary {
+      background: #e0e7ff;
+      color: #3730a3;
+    }
+
+    .badge-outline {
+      border: 1px solid #cbd5e1;
+      background: transparent;
+      color: #475569;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    th {
+      background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+      color: white;
+      font-weight: 600;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+    }
+
+    tbody tr {
+      transition: all 0.2s;
+    }
+
+    tbody tr:hover {
+      background: #f8fafc;
+      transform: scale(1.01);
+    }
+
+    .callout {
+      background: #ecfdf5;
+      border-left: 4px solid #10b981;
+      padding: 1.25rem;
+      margin-top: 1rem;
+      border-radius: 0.5rem;
+    }
+
+    .callout-title {
+      font-weight: 700;
+      color: #065f46;
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .callout p {
+      color: #065f46;
+      margin-bottom: 0.5rem;
+    }
+
+    .budget-box {
+      background: #eff6ff;
+      padding: 1.25rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .budget-total {
+      background: rgba(59, 130, 246, 0.1);
+      border-left: 4px solid #3b82f6;
+      padding: 1.25rem;
+      border-radius: 0.5rem;
+    }
+
+    .budget-total p {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #3b82f6;
+    }
+
+    .diagram-container {
+      background: rgba(241, 245, 249, 0.5);
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+    }
+
+    svg {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .phase {
+      font: bold 14px sans-serif;
+      fill: #1e40af;
+    }
+
+    .feedback {
+      font: 12px sans-serif;
+      fill: #374151;
+    }
+
+    .weeks {
+      font: bold 13px sans-serif;
+      fill: #4b5563;
+    }
+
+    .info-banner {
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      border-left: 4px solid #f59e0b;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .info-banner-icon {
+      font-size: 1.5rem;
+    }
+
+    .info-banner-text {
+      color: #78350f;
+      font-weight: 500;
+    }
+
+    .space-y-4 > * + * {
+      margin-top: 1rem;
+    }
+
+    .space-y-3 > * + * {
+      margin-top: 0.75rem;
+    }
+
+    .space-y-2 > * + * {
+      margin-top: 0.5rem;
+    }
+
+    ul {
+      margin-left: 1.5rem;
+    }
+
+    li {
+      margin-bottom: 0.75rem;
+    }
+
+    strong {
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #3b82f6;
+      margin-bottom: 1rem;
+    }
+
+    h4 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #3b82f6;
+      margin-bottom: 0.75rem;
+    }
+
+    p {
+      font-size: 1.125rem;
+      margin-bottom: 0.5rem;
+    }
+
+    @media print {
+      .nav-card {
+        display: none;
+      }
+      
+      .card-content {
+        max-height: none !important;
+        display: block !important;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 2rem;
+      }
+
+      .card-title {
+        font-size: 1.1rem;
+      }
+
+      table {
+        font-size: 0.875rem;
+      }
+
+      th, td {
+        padding: 0.75rem 0.5rem;
+      }
+
+      .nav-card {
+        position: relative;
+        top: 0;
+      }
+
+      .summary-stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-content">
+        <h1>IT Career Readiness</h1>
+        <p>Project Charter – Managing IT Projects</p>
+      </div>
+    </div>
+
+    <div class="nav-card">
+      <nav class="nav-links">
+        <a href="#student-info" class="nav-link">Student Info</a>
+        <a href="#section1" class="nav-link">Project Goal</a>
+        <a href="#section2" class="nav-link">Vision & Mission</a>
+        <a href="#section3" class="nav-link">Business Case</a>
+        <a href="#section4" class="nav-link">Scope</a>
+        <a href="#section5" class="nav-link">Stakeholders</a>
+        <a href="#section6" class="nav-link">Deliverables</a>
+        <a href="#section7" class="nav-link">Budget</a>
+        <a href="#section8" class="nav-link">Methodology</a>
+        <a href="#section9" class="nav-link">Project Tool</a>
+        <a href="status-reports.html" class="nav-link">Status Reports</a>
+      </nav>
+    </div>
+
+    <div id="student-info" class="card">
+      <div class="card-header no-collapse">
+        <h2 class="card-title">📋 Student Information</h2>
+      </div>
+      <div class="card-content always-show">
+        <div class="space-y-2">
+          <p><strong>Name:</strong> Abner Bonilla</p>
+          <p><strong>Course:</strong> Managing IT Projects</p>
+          <p><strong>Semester:</strong> Fall 2025</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="section1" class="card">
+      <div class="card-header no-collapse">
+        <h2 class="card-title">🎯 1. Project Goal & Description</h2>
+      </div>
+      <div class="card-content always-show">
+        <div class="space-y-4">
+          <h3>Project Title: Launching My IT Career Readiness</h3>
+          <p>
+            <strong>Primary Goal:</strong> Secure at least one real job interview in IT support/operations before the semester ends by producing professional materials, attending networking events, and submitting targeted applications to real employers.
+          </p>
+          <p>
+            This project focuses on actionable career preparation that connects directly to employment opportunities. The professional portfolio and career materials are supporting deliverables that enable the primary goal of landing interviews and building professional connections.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div id="section2" class="card">
+      <div class="card-header no-collapse">
+        <h2 class="card-title">🔭 2. Vision, Mission & Strategy Alignment</h2>
+      </div>
+      <div class="card-content always-show">
+        <div class="space-y-4">
+          <p><strong>Mission:</strong> Grow as an IT professional by developing competitive career materials and proactively seeking real opportunities.</p>
+          <p><strong>Vision:</strong> Be career-ready and confident when pursuing IT support roles, backed by professional materials and networking connections.</p>
+          <p><strong>Strategy:</strong> Combine preparation (resume, portfolio, career plan) with external actions (networking, job applications) to reach real employers this semester.</p>
+          
+          <div class="callout">
+            <div class="callout-title">Goal → Mission → Vision Flow</div>
+            <p>The <strong>project goal</strong> (secure interviews) directly supports the <strong>mission</strong> (develop competitive materials and seek opportunities), which advances the <strong>vision</strong> (career-ready professional with connections). Each deliverable feeds this upward progression.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="section3" class="card">
+      <div class="card-header" onclick="toggleSection('section3')">
+        <h2 class="card-title">💼 3. Business Case & Justification</h2>
+        <span class="toggle-icon" id="icon-section3">▼</span>
+      </div>
+      <div class="card-content show" id="content-section3">
+        <div class="space-y-4">
+          <p><strong>Professional Value:</strong> Prepares me to compete for IT support roles with polished materials, an online presence, and real-world application experience.</p>
+          <p><strong>Personal Value:</strong> Builds confidence by connecting preparation to real interviews and networking results.</p>
+          <p><strong>Learning Outcomes:</strong> Learn to align skills with market needs, build a personal brand, and manage a full career-readiness project.</p>
+          <div class="callout">
+            <div class="callout-title">Requirements Check</div>
+            <div class="space-y-2">
+              <p><strong>Attainable:</strong> The goal is realistic within one semester using my skills and campus resources.</p>
+              <p><strong>Learning-Focused:</strong> I will learn to present my skills, network effectively, and apply strategically.</p>
+              <p><strong>Valuable:</strong> Directly improves my employability by leading to interviews and expanding my professional network.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="section4" class="card">
+      <div class="card-header" onclick="toggleSection('section4')">
+        <h2 class="card-title">📐 4. High-Level Scope</h2>
+        <span class="toggle-icon" id="icon-section4">▼</span>
+      </div>
+      <div class="card-content" id="content-section4">
+        <ul class="space-y-3">
+          <li><strong>In Scope:</strong> Resume & cover letter, portfolio website, career plan, professional interviews, networking events, mock interviews, final presentation, job applications (minimum 3 targeted submissions).</li>
+          <li><strong>Out of Scope:</strong> Guaranteed full-time employment, graduate school planning, certifications beyond career plan documentation.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="section5" class="card">
+      <div class="card-header" onclick="toggleSection('section5')">
+        <div>
+          <h2 class="card-title">👥 5. Stakeholder Register</h2>
+          <span class="card-subtitle">5 Stakeholders • Click to view full register</span>
+        </div>
+        <span class="toggle-icon" id="icon-section5">▼</span>
+      </div>
+      <div class="card-content" id="content-section5">
+        <div class="summary-box">
+          <h4>Key Stakeholders Summary</h4>
+          <p><strong>High Power/High Interest:</strong> Professor, Employers/Recruiters</p>
+          <p><strong>Medium Power/High Interest:</strong> Career Center, Mentors</p>
+          <p><strong>Low Power/High Interest:</strong> Peers</p>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Stakeholder</th>
+              <th>Category</th>
+              <th>Role/Interest</th>
+              <th>Power</th>
+              <th>Interest</th>
+              <th>Engagement Strategy</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Professor</strong></td>
+              <td>Internal</td>
+              <td>Feedback & evaluation</td>
+              <td><span class="badge badge-primary">High</span></td>
+              <td><span class="badge badge-primary">High</span></td>
+              <td>Submit drafts and updates</td>
+            </tr>
+            <tr>
+              <td><strong>Career Center</strong></td>
+              <td>Internal</td>
+              <td>Resume & portfolio guidance</td>
+              <td><span class="badge badge-outline">Medium</span></td>
+              <td><span class="badge badge-primary">High</span></td>
+              <td>Workshops and reviews</td>
+            </tr>
+            <tr>
+              <td><strong>Employers/Recruiters</strong></td>
+              <td>External</td>
+              <td>Potential interviewers</td>
+              <td><span class="badge badge-primary">High</span></td>
+              <td><span class="badge badge-primary">High</span></td>
+              <td>Provide polished materials</td>
+            </tr>
+            <tr>
+              <td><strong>Mentors</strong></td>
+              <td>External</td>
+              <td>Career advice</td>
+              <td><span class="badge badge-outline">Medium</span></td>
+              <td><span class="badge badge-primary">High</span></td>
+              <td>Feedback sessions</td>
+            </tr>
+            <tr>
+              <td><strong>Peers</strong></td>
+              <td>Internal</td>
+              <td>Mock interviews & peer review</td>
+              <td><span class="badge badge-secondary">Low</span></td>
+              <td><span class="badge badge-primary">High</span></td>
+              <td>Exchange feedback</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="section6" class="card">
+      <div class="card-header" onclick="toggleSection('section6')">
+        <div>
+          <h2 class="card-title">📦 6. Deliverables</h2>
+          <span class="card-subtitle">8 Deliverables • ~71 hours total • Click for details</span>
+        </div>
+        <span class="toggle-icon" id="icon-section6">▼</span>
+      </div>
+      <div class="card-content" id="content-section6">
+        <div class="summary-box">
+          <h4>Deliverables Overview</h4>
+          <div class="summary-stats">
+            <div class="stat-item">
+              <span class="stat-label">Total Deliverables</span>
+              <span class="stat-value">8</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Estimated Hours</span>
+              <span class="stat-value">71 hrs</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Critical Path</span>
+              <span class="stat-value">Portfolio</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Dependencies</span>
+              <span class="stat-value">6 items</span>
+            </div>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Deliverable</th>
+              <th>Definition of Done</th>
+              <th>Tasks</th>
+              <th>Dependencies</th>
+              <th>Estimate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Polished Resume & Cover Letter</strong></td>
+              <td>Reviewed & error-free, final PDFs ready</td>
+              <td>Draft → Revise → Feedback → Finalize</td>
+              <td>Career Center input</td>
+              <td><span class="badge badge-outline">6 hrs</span></td>
+            </tr>
+            <tr>
+              <td><strong>Digital Professional Portfolio</strong></td>
+              <td>Live site with About, Projects, Contact, resume link</td>
+              <td>Design → Build → Upload → Host</td>
+              <td>Resume finalized</td>
+              <td><span class="badge badge-outline">20 hrs</span></td>
+            </tr>
+            <tr>
+              <td><strong>Career Plan Document</strong></td>
+              <td>2–3 page plan with 3 short + 3 long-term goals</td>
+              <td>Research → Draft → Revise</td>
+              <td>Professor review</td>
+              <td><span class="badge badge-outline">5 hrs</span></td>
+            </tr>
+            <tr>
+              <td><strong>Professional Interview Report</strong></td>
+              <td>Synthesis of 2+ interviews</td>
+              <td>Schedule → Conduct → Write</td>
+              <td>Interviewee availability</td>
+              <td><span class="badge badge-outline">8 hrs</span></td>
+            </tr>
+            <tr>
+              <td><strong>Networking Events</strong></td>
+              <td>Attend ≥1 event, collect contacts, reflect</td>
+              <td>Find → Attend → Record</td>
+              <td>Event schedules</td>
+              <td><span class="badge badge-outline">10 hrs</span></td>
+            </tr>
+            <tr>
+              <td><strong>Mock Interview Sessions</strong></td>
+              <td>Practice complete & feedback applied</td>
+              <td>Set up → Record → Revise</td>
+              <td>Peers/Mentors</td>
+              <td><span class="badge badge-outline">6 hrs</span></td>
+            </tr>
+            <tr>
+              <td><strong>Job Applications & Showcase Plan</strong></td>
+              <td>3+ applications submitted, 1+ outreach action documented, tracking sheet updated</td>
+              <td>Identify roles → Tailor materials → Apply → Track outcomes</td>
+              <td>Resume & portfolio finalized</td>
+              <td><span class="badge badge-outline">8 hrs</span></td>
+            </tr>
+            <tr>
+              <td><strong>Final Presentation</strong></td>
+              <td>Slide deck summarizing full project</td>
+              <td>Design → Add content → Rehearse → Present</td>
+              <td>All deliverables completed</td>
+              <td><span class="badge badge-outline">8 hrs</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="section7" class="card">
+      <div class="card-header" onclick="toggleSection('section7')">
+        <div>
+          <h2 class="card-title">💰 7. Budget Estimation</h2>
+          <span class="card-subtitle">Total: $160.80 + 63 hrs labor • Click for breakdown</span>
+        </div>
+        <span class="toggle-icon" id="icon-section7">▼</span>
+      </div>
+      <div class="card-content" id="content-section7">
+        <div class="summary-box">
+          <h4>Budget Summary</h4>
+          <div class="summary-stats">
+            <div class="stat-item">
+              <span class="stat-label">Total Budget</span>
+              <span class="stat-value">$160.80</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Labor Hours</span>
+              <span class="stat-value">63 hrs</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Non-Labor Costs</span>
+              <span class="stat-value">$134</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Contingency (20%)</span>
+              <span class="stat-value">$26.80</span>
+            </div>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <div class="budget-box">
+            <p><strong>Labor:</strong> ~63 hours of self-work across all deliverables.</p>
+            <div class="space-y-2" style="margin-top: 1rem;">
+              <p><strong>Non-Labor Cost Breakdown:</strong></p>
+              <ul style="margin-left: 1.5rem;">
+                <li>Domain/hosting: $60/year</li>
+                <li>Adobe Creative Cloud (monthly): $20</li>
+                <li>Stock images/assets: $5</li>
+                <li>Workshop/webinar fees: $30</li>
+                <li>Professional printing (resumes): $19</li>
+                <li><strong>Subtotal:</strong> $134</li>
+                <li><strong>Contingency (20%):</strong> $26.80</li>
+              </ul>
+            </div>
+          </div>
+          <div class="budget-total">
+            <p>Total Project Budget: $160.80 + 63 hours self-labor</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="section8" class="card">
+      <div class="card-header" onclick="toggleSection('section8')">
+        <h2 class="card-title">🔄 8. Methodology & Approach</h2>
+        <span class="toggle-icon" id="icon-section8">▼</span>
+      </div>
+      <div class="card-content show" id="content-section8">
+        <div class="space-y-4">
+          <div>
+            <h3>Hybrid–Iterative Approach</h3>
+            <p>
+              <strong>Why Hybrid–Iterative Works:</strong> My requirements are mostly clear but still evolve with feedback. The semester has fixed milestones (predictive backbone), while each major deliverable – resume, portfolio, interviews, and presentation – will go through feedback loops (iterative refinement). This balance keeps me on schedule and allows continuous improvement based on professor, Career Center, and peer input.
+            </p>
+          </div>
+
+          <div class="diagram-container">
+            <svg viewBox="0 0 1200 350" xmlns="http://www.w3.org/2000/svg">
+              <rect x="60" y="20" width="300" height="30" rx="8" fill="#e0f2fe"/>
+              <text x="210" y="40" class="weeks" text-anchor="middle">Weeks 1–5 • PLAN</text>
+
+              <rect x="380" y="20" width="350" height="30" rx="8" fill="#dbeafe"/>
+              <text x="555" y="40" class="weeks" text-anchor="middle">Weeks 6–14 • EXECUTE + TEST</text>
+
+              <rect x="750" y="20" width="200" height="30" rx="8" fill="#f3e8ff"/>
+              <text x="850" y="40" class="weeks" text-anchor="middle">Weeks 15–16 • DELIVER</text>
+
+              <rect x="100" y="80" width="80" height="40" rx="8" fill="#fbbf24"/>
+              <text x="140" y="105" class="phase" text-anchor="middle">Plan</text>
+              <rect x="200" y="80" width="80" height="40" rx="8" fill="#86efac"/>
+              <text x="240" y="105" class="phase" text-anchor="middle">Scope</text>
+              <rect x="300" y="80" width="80" height="40" rx="8" fill="#86efac"/>
+              <text x="340" y="105" class="phase" text-anchor="middle">Deliverables</text>
+
+              <rect x="420" y="80" width="120" height="40" rx="8" fill="#bae6fd"/>
+              <text x="480" y="105" class="phase" text-anchor="middle">Resume & Cover</text>
+              <rect x="560" y="80" width="120" height="40" rx="8" fill="#bae6fd"/>
+              <text x="620" y="105" class="phase" text-anchor="middle">Portfolio Draft</text>
+              <rect x="700" y="80" width="120" height="40" rx="8" fill="#bae6fd"/>
+              <text x="760" y="105" class="phase" text-anchor="middle">Career Plan</text>
+
+              <rect x="420" y="160" width="120" height="40" rx="8" fill="#fef9c3"/>
+              <text x="480" y="185" class="phase" text-anchor="middle">Networking</text>
+              <rect x="560" y="160" width="120" height="40" rx="8" fill="#fef9c3"/>
+              <text x="620" y="185" class="phase" text-anchor="middle">Mock Interviews</text>
+              <rect x="700" y="160" width="120" height="40" rx="8" fill="#fef9c3"/>
+              <text x="760" y="185" class="phase" text-anchor="middle">Presentation Practice</text>
+
+              <rect x="850" y="80" width="120" height="40" rx="8" fill="#fbcfe8"/>
+              <text x="910" y="105" class="phase" text-anchor="middle">Final Presentation</text>
+
+              <path d="M 480 120 V 140" stroke="#6b7280" stroke-dasharray="4,2"/>
+              <text x="480" y="150" class="feedback" text-anchor="middle">Feedback</text>
+
+              <path d="M 620 120 V 140" stroke="#6b7280" stroke-dasharray="4,2"/>
+              <text x="620" y="150" class="feedback" text-anchor="middle">Feedback</text>
+
+              <path d="M 760 120 V 140" stroke="#6b7280" stroke-dasharray="4,2"/>
+              <text x="760" y="150" class="feedback" text-anchor="middle">Feedback</text>
+
+              <path d="M 760 200 V 220" stroke="#6b7280" stroke-dasharray="4,2"/>
+              <text x="760" y="235" class="feedback" text-anchor="middle">Final Feedback Loop</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="section9" class="card">
+      <div class="card-header" onclick="toggleSection('section9')">
+        <div>
+          <h2 class="card-title">🛠️ 9. Project Tool Selection</h2>
+          <span class="card-subtitle">Primary: Microsoft Project • Click for justification</span>
+        </div>
+        <span class="toggle-icon" id="icon-section9">▼</span>
+      </div>
+      <div class="card-content" id="content-section9">
+        <div class="space-y-4">
+          <h3>Selected Tool: Microsoft Project</h3>
+          
+          <div class="summary-box">
+            <h4>Why Microsoft Project?</h4>
+            <p>Microsoft Project provides comprehensive project management capabilities that align perfectly with the hybrid-iterative methodology and fixed semester timeline. Its robust scheduling, resource management, and tracking features support both the predictive backbone and iterative refinement cycles.</p>
+          </div>
+
+          <div class="callout">
+            <div class="callout-title">Key Benefits for This Project</div>
+            <div class="space-y-2">
+              <p><strong>Gantt Chart Visualization:</strong> Provides clear visual timeline of all deliverables across the 16-week semester, making it easy to identify dependencies and critical path items (like the portfolio).</p>
+              <p><strong>Dependency Management:</strong> Explicitly tracks how deliverables depend on each other (e.g., portfolio depends on resume completion), ensuring proper sequencing of work.</p>
+              <p><strong>Resource Allocation:</strong> Tracks the 63 hours of self-labor across tasks, helping balance workload and prevent overcommitment during busy weeks.</p>
+              <p><strong>Baseline Tracking:</strong> Allows me to set an initial plan and compare actual progress against it, supporting the iterative feedback loops while maintaining semester milestones.</p>
+              <p><strong>Milestone Management:</strong> Clear marking of key deadlines (Career Center reviews, networking events, application submissions, final presentation) ensures nothing falls through the cracks.</p>
+              <p><strong>Professional Reporting:</strong> Generates professional status reports for professor updates, showing progress, upcoming tasks, and any schedule variances.</p>
+            </div>
+          </div>
+
+          <div class="budget-box">
+            <p><strong>Project Structure:</strong></p>
+            <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+              <li><strong>Phases:</strong> Planning (Weeks 1-5), Execution (Weeks 6-14), Delivery (Weeks 15-16)</li>
+              <li><strong>Work Breakdown Structure:</strong> 8 major deliverables broken into subtasks with estimates</li>
+              <li><strong>Milestones:</strong> Resume complete, Portfolio live, First networking event, Applications submitted, Presentation ready</li>
+              <li><strong>Tracking:</strong> Weekly updates to track % complete, actual hours vs. estimates, and identify schedule slippage early</li>
+            </ul>
+          </div>
+
+          <p><strong>Integration with Methodology:</strong> Microsoft Project's ability to handle both fixed milestones (predictive) and task-level updates (iterative) makes it ideal for the hybrid approach. I can maintain the overall semester schedule while adjusting individual task details based on feedback without disrupting the critical path.</p>
+          
+          <p><strong>Alternatives Considered:</strong> Trello and Asana were evaluated but lack the sophisticated scheduling and dependency management needed for tracking 8 interconnected deliverables across a fixed timeline. Microsoft Project provides the rigor appropriate for demonstrating professional project management skills.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function toggleSection(sectionId) {
+      const content = document.getElementById('content-' + sectionId);
+      const icon = document.getElementById('icon-' + sectionId);
+      
+      if (content.classList.contains('show')) {
+        content.classList.remove('show');
+        icon.classList.remove('rotated');
+      } else {
+        content.classList.add('show');
+        icon.classList.add('rotated');
+      }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
