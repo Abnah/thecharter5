@@ -422,6 +422,146 @@
       margin-bottom: 0.5rem;
     }
 
+    /* Stakeholder Matrix Styles */
+    .stakeholder-matrix {
+      display: grid;
+      grid-template-columns: 80px 1fr 1fr;
+      grid-template-rows: 1fr 1fr 60px;
+      gap: 0;
+      border: 3px solid #475569;
+      background: white;
+      height: 500px;
+      margin: 1.5rem 0;
+    }
+
+    .sm-axis-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1rem;
+      color: #1e293b;
+      background: #f1f5f9;
+    }
+
+    .sm-y-axis {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      grid-row: 1 / 3;
+      grid-column: 1;
+      border-right: 3px solid #475569;
+    }
+
+    .sm-x-axis {
+      grid-row: 3;
+      grid-column: 2 / 4;
+      border-top: 3px solid #475569;
+    }
+
+    .sm-quadrant {
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      border: 2px solid #cbd5e1;
+    }
+
+    .sm-quadrant-title {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+      padding-bottom: 0.25rem;
+      border-bottom: 2px solid currentColor;
+    }
+
+    .sm-quadrant-subtitle {
+      font-size: 0.75rem;
+      font-style: italic;
+      margin-bottom: 0.75rem;
+      opacity: 0.8;
+    }
+
+    .sm-stakeholders {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .sm-stakeholders li {
+      padding: 0.4rem;
+      margin-bottom: 0.4rem;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 0.375rem;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .sm-manage-closely {
+      background: linear-gradient(135deg, #fecaca 0%, #fca5a5 100%);
+      color: #7f1d1d;
+      grid-row: 1;
+      grid-column: 3;
+    }
+
+    .sm-manage-closely .sm-quadrant-title { 
+      color: #991b1b; 
+    }
+
+    .sm-manage-closely .sm-stakeholders li { 
+      background: rgba(254, 202, 202, 0.5); 
+    }
+
+    .sm-keep-satisfied {
+      background: linear-gradient(135deg, #d9f99d 0%, #bef264 100%);
+      color: #365314;
+      grid-row: 1;
+      grid-column: 2;
+    }
+
+    .sm-keep-satisfied .sm-quadrant-title { 
+      color: #3f6212; 
+    }
+
+    .sm-keep-satisfied .sm-stakeholders li { 
+      background: rgba(217, 249, 157, 0.5); 
+    }
+
+    .sm-keep-informed {
+      background: linear-gradient(135deg, #bfdbfe 0%, #93c5fd 100%);
+      color: #1e3a8a;
+      grid-row: 2;
+      grid-column: 3;
+    }
+
+    .sm-keep-informed .sm-quadrant-title { 
+      color: #1e40af; 
+    }
+
+    .sm-keep-informed .sm-stakeholders li { 
+      background: rgba(191, 219, 254, 0.5); 
+    }
+
+    .sm-monitor {
+      background: linear-gradient(135deg, #fef9c3 0%, #fef08a 100%);
+      color: #713f12;
+      grid-row: 2;
+      grid-column: 2;
+    }
+
+    .sm-monitor .sm-quadrant-title { 
+      color: #854d0e; 
+    }
+
+    .sm-monitor .sm-stakeholders li { 
+      background: rgba(254, 249, 195, 0.5); 
+    }
+
+    .sm-empty {
+      grid-row: 3;
+      grid-column: 1;
+      background: #f1f5f9;
+      border: none;
+    }
+
     @media print {
       .nav-card {
         display: none;
@@ -458,6 +598,28 @@
       .summary-stats {
         grid-template-columns: 1fr;
       }
+
+      .stakeholder-matrix {
+        height: 400px;
+        grid-template-columns: 60px 1fr 1fr;
+      }
+
+      .sm-axis-label {
+        font-size: 0.85rem;
+      }
+
+      .sm-quadrant {
+        padding: 0.75rem;
+      }
+
+      .sm-quadrant-title {
+        font-size: 0.85rem;
+      }
+
+      .sm-stakeholders li {
+        font-size: 0.8rem;
+        padding: 0.3rem;
+      }
     }
   </style>
 </head>
@@ -482,6 +644,8 @@
         <a href="#section7" class="nav-link">Budget</a>
         <a href="#section8" class="nav-link">Methodology</a>
         <a href="#section9" class="nav-link">Project Tool</a>
+        <a href="#section10" class="nav-link">Project Plan</a>
+        <a href="#feedback" class="nav-link">Feedback & Refinements</a>
         <a href="status-reports.html" class="nav-link">Status Reports</a>
       </nav>
     </div>
@@ -558,14 +722,76 @@
 
     <div id="section4" class="card">
       <div class="card-header" onclick="toggleSection('section4')">
-        <h2 class="card-title">📐 4. High-Level Scope</h2>
+        <h2 class="card-title">🔍 4. High-Level Scope</h2>
         <span class="toggle-icon" id="icon-section4">▼</span>
       </div>
-      <div class="card-content" id="content-section4">
+      <div class="card-content show" id="content-section4">
         <ul class="space-y-3">
           <li><strong>In Scope:</strong> Resume & cover letter, portfolio website, career plan, professional interviews, networking events, mock interviews, final presentation, job applications (minimum 3 targeted submissions).</li>
           <li><strong>Out of Scope:</strong> Guaranteed full-time employment, graduate school planning, certifications beyond career plan documentation.</li>
         </ul>
+
+        <h3 style="margin-top: 2rem;">Project Roadmap</h3>
+        <div class="diagram-container">
+          <svg viewBox="0 0 1200 450" xmlns="http://www.w3.org/2000/svg">
+            <rect x="50" y="30" width="1100" height="40" rx="8" fill="#e0f2fe" stroke="#3b82f6" stroke-width="2"/>
+            <text x="600" y="55" class="weeks" text-anchor="middle" style="font-size: 16px;">16-Week Semester Timeline</text>
+            
+            <rect x="60" y="100" width="320" height="80" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+            <text x="220" y="130" class="phase" text-anchor="middle" style="font-size: 16px;">PHASE 1: PLANNING</text>
+            <text x="220" y="150" class="weeks" text-anchor="middle">Weeks 1-5</text>
+            <text x="220" y="170" style="font-size: 12px; fill: #78350f;" text-anchor="middle">• Define scope & deliverables</text>
+            
+            <rect x="400" y="100" width="500" height="80" rx="8" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+            <text x="650" y="130" class="phase" text-anchor="middle" style="font-size: 16px;">PHASE 2: EXECUTION</text>
+            <text x="650" y="150" class="weeks" text-anchor="middle">Weeks 6-14</text>
+            <text x="650" y="170" style="font-size: 12px; fill: #1e40af;" text-anchor="middle">• Build deliverables • Network • Apply for jobs</text>
+            
+            <rect x="920" y="100" width="220" height="80" rx="8" fill="#fce7f3" stroke="#ec4899" stroke-width="2"/>
+            <text x="1030" y="130" class="phase" text-anchor="middle" style="font-size: 16px;">PHASE 3: DELIVERY</text>
+            <text x="1030" y="150" class="weeks" text-anchor="middle">Weeks 15-16</text>
+            <text x="1030" y="170" style="font-size: 12px; fill: #9f1239;" text-anchor="middle">• Final presentation</text>
+            
+            <circle cx="220" cy="220" r="8" fill="#f59e0b"/>
+            <line x1="220" y1="180" x2="220" y2="220" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4,2"/>
+            <text x="220" y="245" style="font-size: 12px; font-weight: bold; fill: #78350f;" text-anchor="middle">M1: Charter</text>
+            <text x="220" y="260" style="font-size: 11px; fill: #78350f;" text-anchor="middle">Complete</text>
+            
+            <circle cx="450" cy="220" r="8" fill="#3b82f6"/>
+            <line x1="450" y1="180" x2="450" y2="220" stroke="#3b82f6" stroke-width="2" stroke-dasharray="4,2"/>
+            <text x="450" y="245" style="font-size: 12px; font-weight: bold; fill: #1e40af;" text-anchor="middle">M2: Resume &</text>
+            <text x="450" y="260" style="font-size: 11px; fill: #1e40af;" text-anchor="middle">Portfolio Draft</text>
+            
+            <circle cx="650" cy="220" r="8" fill="#3b82f6"/>
+            <line x1="650" y1="180" x2="650" y2="220" stroke="#3b82f6" stroke-width="2" stroke-dasharray="4,2"/>
+            <text x="650" y="245" style="font-size: 12px; font-weight: bold; fill: #1e40af;" text-anchor="middle">M3: Networking</text>
+            <text x="650" y="260" style="font-size: 11px; fill: #1e40af;" text-anchor="middle">Events Complete</text>
+            
+            <circle cx="850" cy="220" r="8" fill="#3b82f6"/>
+            <line x1="850" y1="180" x2="850" y2="220" stroke="#3b82f6" stroke-width="2" stroke-dasharray="4,2"/>
+            <text x="850" y="245" style="font-size: 12px; font-weight: bold; fill: #1e40af;" text-anchor="middle">M4: Applications</text>
+            <text x="850" y="260" style="font-size: 11px; fill: #1e40af;" text-anchor="middle">Submitted (3+)</text>
+            
+            <circle cx="1030" cy="220" r="8" fill="#ec4899"/>
+            <line x1="1030" y1="180" x2="1030" y2="220" stroke="#ec4899" stroke-width="2" stroke-dasharray="4,2"/>
+            <text x="1030" y="245" style="font-size: 12px; font-weight: bold; fill: #9f1239;" text-anchor="middle">M5: Final</text>
+            <text x="1030" y="260" style="font-size: 11px; fill: #9f1239;" text-anchor="middle">Presentation</text>
+            
+            <rect x="750" y="300" width="100" height="40" rx="8" fill="#10b981" stroke="#065f46" stroke-width="2"/>
+            <text x="800" y="325" style="font-size: 14px; font-weight: bold; fill: white;" text-anchor="middle">📍 Week 10</text>
+            <text x="800" y="360" style="font-size: 11px; font-weight: bold; fill: #065f46;" text-anchor="middle">Currently Here</text>
+            
+            <text x="50" y="410" style="font-size: 13px; font-weight: bold; fill: #1e40af;">Key Deliverables:</text>
+            <text x="50" y="430" style="font-size: 11px; fill: #64748b;">Resume (W6) • Portfolio (W7-9) • Career Plan (W8) • Interviews (W9-10) • Networking (W7-11) • Mock Interviews (W10-12) • Applications (W11-13) • Presentation (W15-16)</text>
+          </svg>
+        </div>
+        
+        <div class="callout" style="margin-top: 1.5rem;">
+          <div class="callout-title">Roadmap Notes</div>
+          <p><strong>Critical Path:</strong> Portfolio website → Job applications → Final presentation</p>
+          <p><strong>Current Status (Week 10):</strong> In execution phase, portfolio should be live, networking in progress, preparing for job applications.</p>
+          <p><strong>Risk Areas:</strong> Job application responses may be delayed beyond semester end; networking event schedules may conflict with academic calendar.</p>
+        </div>
       </div>
     </div>
 
@@ -577,13 +803,63 @@
         </div>
         <span class="toggle-icon" id="icon-section5">▼</span>
       </div>
-      <div class="card-content" id="content-section5">
+      <div class="card-content show" id="content-section5">
         <div class="summary-box">
           <h4>Key Stakeholders Summary</h4>
           <p><strong>High Power/High Interest:</strong> Professor, Employers/Recruiters</p>
           <p><strong>Medium Power/High Interest:</strong> Career Center, Mentors</p>
           <p><strong>Low Power/High Interest:</strong> Peers</p>
         </div>
+
+        <h3 style="margin-top: 1.5rem;">Stakeholder Power/Interest Matrix</h3>
+
+        <div class="stakeholder-matrix">
+          <div class="sm-axis-label sm-y-axis">POWER →</div>
+          
+          <div class="sm-quadrant sm-keep-satisfied">
+            <div class="sm-quadrant-title">Keep Satisfied</div>
+            <div class="sm-quadrant-subtitle">(High Power, Low Interest)</div>
+            <ul class="sm-stakeholders">
+              <li>None</li>
+            </ul>
+          </div>
+          
+          <div class="sm-quadrant sm-manage-closely">
+            <div class="sm-quadrant-title">Manage Closely</div>
+            <div class="sm-quadrant-subtitle">(High Power, High Interest)</div>
+            <ul class="sm-stakeholders">
+              <li>• Professor</li>
+              <li>• Employers/Recruiters</li>
+            </ul>
+          </div>
+          
+          <div class="sm-quadrant sm-monitor">
+            <div class="sm-quadrant-title">Monitor</div>
+            <div class="sm-quadrant-subtitle">(Low Power, Low Interest)</div>
+            <ul class="sm-stakeholders">
+              <li>None</li>
+            </ul>
+          </div>
+          
+          <div class="sm-quadrant sm-keep-informed">
+            <div class="sm-quadrant-title">Keep Informed</div>
+            <div class="sm-quadrant-subtitle">(Low Power, High Interest)</div>
+            <ul class="sm-stakeholders">
+              <li>• Career Center (Medium Power)</li>
+              <li>• Mentors (Medium Power)</li>
+              <li>• Peers</li>
+            </ul>
+          </div>
+          
+          <div class="sm-empty"></div>
+          <div class="sm-axis-label sm-x-axis">INTEREST →</div>
+        </div>
+
+        <div class="callout" style="margin-top: 1rem;">
+          <div class="callout-title">Matrix Notes</div>
+          <p><strong>Medium Power Stakeholders:</strong> Career Center and Mentors have Medium Power but High Interest, placing them in the "Keep Informed" quadrant. They require regular communication and active engagement throughout the project.</p>
+        </div>
+
         <table>
           <thead>
             <tr>
@@ -804,14 +1080,14 @@
       <div class="card-content show" id="content-section8">
         <div class="space-y-4">
           <div>
-            <h3>Hybrid–Iterative Approach</h3>
+            <h3>Hybrid—Iterative Approach</h3>
             <p>
-              <strong>Why Hybrid–Iterative Works:</strong> My requirements are mostly clear but still evolve with feedback. The semester has fixed milestones (predictive backbone), while each major deliverable – resume, portfolio, interviews, and presentation – will go through feedback loops (iterative refinement). This balance keeps me on schedule and allows continuous improvement based on professor, Career Center, and peer input.
+              <strong>Why Hybrid—Iterative Works:</strong> My requirements are mostly clear but still evolve with feedback. The semester has fixed milestones (predictive backbone), while each major deliverable – resume, portfolio, interviews, and presentation – will go through feedback loops (iterative refinement). This balance keeps me on schedule and allows continuous improvement based on professor, Career Center, and peer input.
             </p>
           </div>
 
           <div class="diagram-container">
-            <svg viewBox="0 0 1200 350" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 1200 500" xmlns="http://www.w3.org/2000/svg">
               <rect x="60" y="20" width="300" height="30" rx="8" fill="#e0f2fe"/>
               <text x="210" y="40" class="weeks" text-anchor="middle">Weeks 1–5 • PLAN</text>
 
@@ -840,22 +1116,65 @@
               <rect x="560" y="160" width="120" height="40" rx="8" fill="#fef9c3"/>
               <text x="620" y="185" class="phase" text-anchor="middle">Mock Interviews</text>
               <rect x="700" y="160" width="120" height="40" rx="8" fill="#fef9c3"/>
-              <text x="760" y="185" class="phase" text-anchor="middle">Presentation Practice</text>
+              <text x="760" y="185" class="phase" text-anchor="middle">Application Prep</text>
 
               <rect x="850" y="80" width="120" height="40" rx="8" fill="#fbcfe8"/>
               <text x="910" y="105" class="phase" text-anchor="middle">Final Presentation</text>
 
-              <path d="M 480 120 V 140" stroke="#6b7280" stroke-dasharray="4,2"/>
-              <text x="480" y="150" class="feedback" text-anchor="middle">Feedback</text>
+              <path d="M 480 120 V 140" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,2"/>
+              <circle cx="480" cy="145" r="4" fill="#6b7280"/>
+              <text x="480" y="155" class="feedback" text-anchor="middle">Career Center</text>
 
-              <path d="M 620 120 V 140" stroke="#6b7280" stroke-dasharray="4,2"/>
-              <text x="620" y="150" class="feedback" text-anchor="middle">Feedback</text>
+              <path d="M 620 120 V 140" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,2"/>
+              <circle cx="620" cy="145" r="4" fill="#6b7280"/>
+              <text x="620" y="155" class="feedback" text-anchor="middle">Professor Review</text>
 
-              <path d="M 760 120 V 140" stroke="#6b7280" stroke-dasharray="4,2"/>
-              <text x="760" y="150" class="feedback" text-anchor="middle">Feedback</text>
+              <path d="M 760 120 V 140" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,2"/>
+              <circle cx="760" cy="145" r="4" fill="#6b7280"/>
+              <text x="760" y="155" class="feedback" text-anchor="middle">Mentor Input</text>
 
-              <path d="M 760 200 V 220" stroke="#6b7280" stroke-dasharray="4,2"/>
-              <text x="760" y="235" class="feedback" text-anchor="middle">Final Feedback Loop</text>
+              <path d="M 760 200 V 220" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,2"/>
+              <circle cx="760" cy="225" r="4" fill="#6b7280"/>
+              <text x="760" y="240" class="feedback" text-anchor="middle">Final Refinements</text>
+
+              <path d="M 480 160 Q 450 140 480 120" stroke="#ef4444" stroke-width="2" fill="none" marker-end="url(#arrowred)"/>
+              <text x="440" y="140" style="font-size: 11px; fill: #dc2626; font-weight: bold;">Iterate</text>
+
+              <path d="M 620 160 Q 590 140 620 120" stroke="#ef4444" stroke-width="2" fill="none"/>
+              <text x="580" y="140" style="font-size: 11px; fill: #dc2626; font-weight: bold;">Iterate</text>
+
+              <polygon points="340,260 360,280 340,300 320,280" fill="#f59e0b" stroke="#78350f" stroke-width="2"/>
+              <text x="340" y="285" style="font-size: 10px; fill: white; font-weight: bold;" text-anchor="middle">Go?</text>
+              <text x="340" y="320" style="font-size: 11px; fill: #78350f; font-weight: bold;" text-anchor="middle">Resume Ready?</text>
+
+              <polygon points="620,260 640,280 620,300 600,280" fill="#f59e0b" stroke="#78350f" stroke-width="2"/>
+              <text x="620" y="285" style="font-size: 10px; fill: white; font-weight: bold;" text-anchor="middle">Go?</text>
+              <text x="620" y="320" style="font-size: 11px; fill: #78350f; font-weight: bold;" text-anchor="middle">Portfolio Live?</text>
+
+              <rect x="50" y="360" width="1100" height="60" rx="8" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+              <text x="600" y="385" style="font-size: 14px; font-weight: bold; fill: #065f46;" text-anchor="middle">Weekly Status Reviews (Every Friday)</text>
+              <text x="600" y="405" style="font-size: 12px; fill: #065f46;" text-anchor="middle">• Update project plan • Document progress • Adjust timeline • Address risks • Submit status report</text>
+
+              <rect x="650" y="440" width="100" height="35" rx="8" fill="#10b981"/>
+              <text x="700" y="463" style="font-size: 13px; font-weight: bold; fill: white;" text-anchor="middle">📍 Week 10</text>
+              
+              <rect x="50" y="440" width="15" height="15" rx="3" fill="#bae6fd"/>
+              <text x="70" y="452" style="font-size: 11px; fill: #475569;">Core Deliverables</text>
+              
+              <rect x="180" y="440" width="15" height="15" rx="3" fill="#fef9c3"/>
+              <text x="200" y="452" style="font-size: 11px; fill: #475569;">Supporting Activities</text>
+              
+              <circle cx="327" cy="447" r="4" fill="#6b7280"/>
+              <text x="335" y="452" style="font-size: 11px; fill: #475569;">Feedback Points</text>
+              
+              <polygon points="438,440 445,447 438,454 431,447" fill="#f59e0b" stroke="#78350f" stroke-width="1"/>
+              <text x="450" y="452" style="font-size: 11px; fill: #475569;">Decision Gates</text>
+
+              <defs>
+                <marker id="arrowred" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                  <path d="M0,0 L0,6 L9,3 z" fill="#ef4444" />
+                </marker>
+              </defs>
             </svg>
           </div>
         </div>
@@ -908,34 +1227,81 @@
       </div>
     </div>
 
-  </div>
+    <div id="section10" class="card">
+      <div class="card-header no-collapse">
+        <div>
+          <h2 class="card-title">📊 10. Project Plan Screenshots & Tracking</h2>
+          <span class="card-subtitle">Microsoft Project Implementation</span>
+        </div>
+      </div>
+      <div class="card-content always-show">
+        <div class="space-y-4">
+          <div class="info-banner">
+            <span class="info-banner-icon">⚠️</span>
+            <div class="info-banner-text">
+              <strong>Action Required:</strong> This section requires actual Microsoft Project screenshots. Placeholders below show what needs to be captured.
+            </div>
+          </div>
 
-  <script>
-    function toggleSection(sectionId) {
-      const content = document.getElementById('content-' + sectionId);
-      const icon = document.getElementById('icon-' + sectionId);
-      
-      if (content.classList.contains('show')) {
-        content.classList.remove('show');
-        icon.classList.remove('rotated');
-      } else {
-        content.classList.add('show');
-        icon.classList.add('rotated');
-      }
-    }
+          <h3>Required Screenshots</h3>
+          
+          <div class="budget-box">
+            <h4>📸 Screenshot 1: Gantt Chart View (Full Timeline)</h4>
+            <p><strong>What to capture:</strong> Full Gantt chart showing all 8 deliverables with bars, dependencies, and current date marker</p>
+            <p><strong>Highlights needed:</strong> Critical path items (Portfolio → Applications → Presentation) in red or highlighted</p>
+            <div style="background: #f1f5f9; padding: 2rem; margin-top: 1rem; border-radius: 0.5rem; text-align: center; border: 2px dashed #cbd5e1;">
+              <p style="color: #64748b; font-size: 0.9rem; margin-top: 0.5rem;">Show: Hours per week breakdown, total hours used vs. remaining</p>
+            </div>
+          </div>
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
-    });
-  </script>
-</body>
-</html>
+          <div class="budget-box">
+            <h4>📸 Screenshot 4: Critical Path Analysis</h4>
+            <p><strong>What to capture:</strong> Critical path highlighted showing longest dependent chain</p>
+            <p><strong>Highlights needed:</strong> Critical tasks in red, slack/float time visible for non-critical tasks</p>
+            <div style="background: #f1f5f9; padding: 2rem; margin-top: 1rem; border-radius: 0.5rem; text-align: center; border: 2px dashed #cbd5e1;">
+              <p style="color: #64748b; font-style: italic; margin: 0;">📋 [INSERT CRITICAL PATH SCREENSHOT HERE]</p>
+              <p style="color: #64748b; font-size: 0.9rem; margin-top: 0.5rem;">Show: Resume → Portfolio → Applications → Presentation path highlighted</p>
+            </div>
+          </div>
+
+          <div class="callout">
+            <div class="callout-title">💡 How to Capture These Screenshots</div>
+            <div class="space-y-2">
+              <p><strong>Step 1:</strong> Open your Microsoft Project file with all 8 deliverables entered</p>
+              <p><strong>Step 2:</strong> For Gantt Chart: View → Gantt Chart, zoom to show full timeline, use Snipping Tool</p>
+              <p><strong>Step 3:</strong> For Task List: View → Task Sheet, ensure Predecessors column is visible</p>
+              <p><strong>Step 4:</strong> For Resources: View → Resource Usage or Resource Sheet</p>
+              <p><strong>Step 5:</strong> For Critical Path: Format → Critical Tasks (show in red), or View → Tracking Gantt</p>
+              <p><strong>Step 6:</strong> Use image editing to add arrows/highlights showing what changed week-to-week</p>
+            </div>
+          </div>
+
+          <h3 style="margin-top: 2rem;">Weekly Project Plan Updates</h3>
+          <p>Track changes to your Microsoft Project plan each week. Document what tasks were updated, time estimates adjusted, or dependencies modified.</p>
+          
+          <div class="summary-box">
+            <h4>Week 10 Updates (Current Week)</h4>
+            <p><strong>Tasks Completed This Week:</strong></p>
+            <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+              <li>Professional interviews report finalized (100% complete)</li>
+              <li>Portfolio website 85% complete (CSS styling remaining)</li>
+              <li>Attended first networking event (marked complete in plan)</li>
+            </ul>
+            <p style="margin-top: 1rem;"><strong>Plan Adjustments:</strong></p>
+            <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+              <li>Extended portfolio completion by 3 days due to hosting setup issues</li>
+              <li>Moved job applications start date to Week 11 (was Week 10) to allow portfolio to go live first</li>
+              <li>Added buffer time to mock interviews (now 8 hours instead of 6)</li>
+            </ul>
+            <p style="margin-top: 1rem;"><strong>Time Tracking:</strong> 12 hours invested this week (Portfolio: 7hrs, Networking: 3hrs, Interviews report: 2hrs)</p>
+          </div>
+
+          <div style="background: #f1f5f9; padding: 2rem; margin-top: 1rem; border-radius: 0.5rem; text-align: center; border: 2px dashed #cbd5e1;">
+            <p style="color: #64748b; font-style: italic; margin: 0;">📋 [INSERT WEEK 10 UPDATED PLAN SCREENSHOT WITH HIGHLIGHTS]</p>
+            <p style="color: #64748b; font-size: 0.9rem; margin-top: 0.5rem;">Highlight: Portfolio end date change, Application start date shift, Mock interview duration increase</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+   
